@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Array Stuff</title>
+</head>
+<body>
+<h1>Arrays Stuff</h1>
+
+
+<script type="text/javascript">
+
+var array1 = ["one", "two", "three", "four", "five"];
+var array2 = ["5","5","5","5"];
+var array3 = [1, 2, 3, 4, 5, 15];
+var array4 = [10, 45, 6, -78, 888, 6, 1239];
+
+
+printReverse(array1);
+console.log(isUniform(array2));
+console.log(sumArray(array3));
+console.log(max(array4));
+
+
+	//problem 1
+	//prints an array in reverse
+	function printReverse(array) {
+		for (var i = array.length-1; i>=0; i--){
+			console.log("printing: "+ i  +": "+ array[i]);
+		} 
+	}
+	
+
+	//problem 2
+	//returns true only if all items in an array are the same
+	function isUniform(array) {
+		var firstElement = array[0];
+		var uni=true;
+		array.forEach(function(item, i) {
+			if (item === firstElement) {
+				console.log(i+" : "+item+typeof(item));
+			} else {
+				console.log(i+" is different : "+item+typeof(item));
+				uni = false;
+				
+			}
+		})	
+		console.log("endOf forEach");
+		return uni;
+	}
+
+
+	//problem 3
+	//return the sum of all the elements in the array
+	function sumArray(array) {
+		var sum=0;
+		array.forEach(function(number){
+			sum=sum+number;
+		})
+		return sum;	
+	}
+
+
+	//problem 4
+	//return max number
+	function max(array) {
+		var max=0;
+		array.forEach(function(number){
+			if (number > max) {
+				console.log("number : " + number+ "is the biggest number yet");
+				max = number;
+			} else {
+				console.log("number : "+ number + "is smaller than : "+max)
+			}
+
+		})
+		return max;
+	}
+</script>
+</body>
+</html>

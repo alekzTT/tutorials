@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript">
+		var age = prompt(" hey man how old are you ?");
+
+		if (age < 0) {
+			console.log("cannot have negative age you fool")
+		}
+
+		if (age === 21 ) {
+			console.log("happy 21st birthday, wait for the next.....")
+		}
+
+		if (age % 2 !== 0) {
+			console.log("odd age man")
+		}
+
+		//next one is for perfect square numbes 25 = 5*5, 9=3*3 etc
+		//all perfecr square numbers sums of consecutive odd numbers
+		//1=1, 4=1+3, 9=1+3+5, 1+3+5+7=16, 1+3+5+7+9=25
+		
+		if(age % Math.sqrt(age) === 0) {
+ 			console.log("Your age is a perfect square!");
+ 			console.log(Math.sqrt(age));
+			console.log(age % Math.sqrt(age))
+			console.log(age / Math.sqrt(age))
+		} else {
+			console.log("sqrt is : " + Math.sqrt(age));
+			console.log("modulo is :" + age % Math.sqrt(age))
+			console.log("division is : " + age / Math.sqrt(age))
+		}
+
+	</script>
+	<meta charset="utf-8">
+	<title>AGE stuff</title>
+</head>
+<body>
+
+</body>
+</html>

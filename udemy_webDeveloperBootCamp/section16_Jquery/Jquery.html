@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JQuery Demo</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+			  
+</head>
+<body>
+	
+	<h1>Jquery Demo</h1>
+
+	<div>Div 1</div>
+	<div class="highlight">Div 2</div>
+	<div id="third">Div 3</div>
+	<div class="highlight">Div 4</div>
+
+	<script>
+		if(jQuery){
+			console.log("jQuery loaded");
+		//	1) include Jquery
+		//	2) select all divs and give them a purple background
+		$("div").css({background:"purple"});
+		//	3) select divs with class highlight and make them 200px wide
+		$(".highlight").css("width", "200px");
+		//	4) select the div with id "third" orange border
+		$("#third").css({border:"4px orange solid"});
+
+		//bonus :first div only and change color to pink
+		//$('div')[0].css("color", "pink"); //this does not work
+		//$('div')[0].style.color = "pink"; //this works
+		//$("div:first-of-type").css("color", "pink"); //faster : native css
+		$("div:first").css("color", "pink"); //slower Jquery shortcut : native css
+
+
+	} else {
+		alert("No jQuery found");
+	}
+	</script>
+
+</body>
+</html>

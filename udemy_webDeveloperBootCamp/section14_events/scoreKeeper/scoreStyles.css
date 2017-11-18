@@ -1,0 +1,6 @@
+.winner {
+	color : green;
+	font-weight : bolder;
+	border : black thick solid;
+	background: orange;
+}
