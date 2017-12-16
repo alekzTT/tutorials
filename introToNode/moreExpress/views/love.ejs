@@ -1,0 +1,15 @@
+<!-- Header template -->
+<% include partials/header %>
+    <h1>You fell in love with <%= thingVar.toUpperCase(); %>!!!!</h1>
+    <!-- whatever goes in <%= %> is regular JavaScript -->
+    
+    <!-- 
+        Two types of tags in ejs (3 actually )
+        1 - <%= %> the returned value will be added to the HTML 
+        2 - <% %> control flow, logic, etc  
+    -->
+    <% for(var i =0; i<5;i++) { %>
+        <p><%= i %></p>
+    <% } %>
+<% include partials/footer %>
+<!-- Footer Template -->

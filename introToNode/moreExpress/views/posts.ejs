@@ -1,0 +1,11 @@
+<!-- Header template -->
+<% include partials/header %>
+<h1>list of posts</h1>
+<ul>
+<!-- i love this forEach  -->
+<% posts.forEach(function(post){ %>
+<li>got a "<%= post.title %>" from - <strong><%= post.author %></strong></li>
+<%  }) %>
+</ul>
+<% include partials/footer %>
+<!-- Footer Template -->
