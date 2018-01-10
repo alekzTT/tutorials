@@ -31,7 +31,7 @@ var Blog = mongoose.model("Blog", blogSchema);
 //      body:"This is a test Blog to showcase stuff"
 // });
 
-//RESTFULL ROUTES
+//RESTFULL ROUTES 7 ROUTES mapping HTTP req CRUD
 //"/" conventional for home to go to index route
 app.get("/", function(req, res){
      res.redirect("/blogs");
