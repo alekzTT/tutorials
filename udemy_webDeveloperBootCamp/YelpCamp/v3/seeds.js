@@ -44,7 +44,7 @@ function seedDB(){
                                     console.log("could not create comment");
                                 } else {
                                     //associate it with campground after creating the comment
-                                    campground.comments.push(comment);
+                                    campground.comments.push(comment._id);
                                     campground.save();
                                     console.log(comment+" was created");
                                 }
