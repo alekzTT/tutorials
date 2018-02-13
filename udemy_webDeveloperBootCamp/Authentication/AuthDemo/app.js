@@ -13,17 +13,18 @@ var app = express();
 app.set('view engine' , 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 
-
-//we need these two lines every time we are going to use passport
-
-app.use(passport.initialize());
-app.use(passport.session());
-
+//before password session...... 
 app.use(require("express-session")({
     secret:"webDevCamp",
     resave: false,
     saveUninitialized: false
 }));
+//we need these two lines every time we are going to use passport
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 //responsible for reading and encode - decode the session
 //from password-local-mongoose
@@ -38,7 +39,8 @@ app.get("/", function(req, res){
     res.render("home");
 });
 
-app.get("/secret", function(req, res){
+//check if user is loged in by writing a middleware
+app.get("/secret", isLoggedIn,  function(req, res){
     res.render("secret");
 });
 
@@ -82,12 +84,33 @@ app.post("/login", passport.authenticate("local" ,
     
 });
 
+app.get("/logout", function(req, res){
+    //destroy user's data in the session
+    req.logout();
+    //res.send("Log You out.");
+    res.redirect("/");
+    
+});
+
 
 
 //======================
 //END OF ROUTES
 
-
+//MidleWare to check loged in functionality
+//standard for middleware (req, res, next)
+//express knows what function to call "next"
+//can call more than one middleware by next, next, next
+function isLoggedIn(req, res, next){
+  if(req.isAuthenticated()){
+      console.log(req.body.username+"Authenticated");
+      return next();
+  } else {
+    console.log("ERROR in authentication");  
+    res.redirect("/login");  
+  }
+    
+};
 
 
 app.listen(process.env.PORT, process.env.IP,function(){
