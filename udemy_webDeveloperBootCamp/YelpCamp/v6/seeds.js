@@ -34,7 +34,8 @@ function seedDB(){
                         if (err) {
                             console.log(err+"Is the ERROR");
                         } else {
-                            console.log(campground+"\nIs saved in Database");
+                            //console.log(campground+"\nIs saved in Database");
+                            console.log("Camp created");
                             //create a comment on each campground
                             Comment.create({
                                 text : "This place is great, but no wifi for us to make a living",
@@ -46,7 +47,8 @@ function seedDB(){
                                     //associate it with campground after creating the comment
                                     campground.comments.push(comment._id);
                                     campground.save();
-                                    console.log(comment+" was created");
+                                    //console.log(comment+" was created");
+                                    console.log("Comment was created");
                                 }
                             });
                         }
