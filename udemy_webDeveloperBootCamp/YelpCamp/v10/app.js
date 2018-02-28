@@ -40,9 +40,10 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+
 //==================================================================
 //pass user variable to all routes
-//following middleware will run on every single route
+//following middleware will run on every single route and template (view)
 app.use(function(req, res, next){
     //whatever we put in res.locals will be available on all templates
     res.locals.currentUser = req.user;
