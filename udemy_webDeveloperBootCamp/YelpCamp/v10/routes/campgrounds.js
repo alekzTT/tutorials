@@ -98,7 +98,7 @@ router.put("/:id",checkCampOwner, function(req, res){
             //also correct ("/campgrounds/"+updatedCampground.id)
             res.redirect("/campgrounds/"+req.params.id);
         }
-    } );
+    });
     //redirect to show page
 });
 
