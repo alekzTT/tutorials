@@ -6,3 +6,6 @@ Any modifications / changes made from the original content is probably commented
 
 >webDeveloperBootCamp
     [html, css, bootstrap, javascript, jquery, node.js, npm,  express.js, json, APIs, mongoDB, REST, javascript:The tricky Stuff]
+    
+>webDevBootCamp2
+    [AJAX]
