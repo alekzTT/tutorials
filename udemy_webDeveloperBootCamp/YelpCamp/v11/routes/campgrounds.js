@@ -70,8 +70,10 @@ router.get("/:id", function (req, res){
     
     //mongoose function
     Campground.findById(req.params.id).populate("comments").exec(function(error, foundCampground){
-        if (error) { 
-            console.log("No camp with such id");
+        if (error || !foundCampground) { 
+            //console.log("No camp with such id");
+            req.flash("error", "campground not found");
+            res.redirect("back");
         } else {
             //console.log(foundCampground);
             res.render("campgrounds/show", {campground : foundCampground});

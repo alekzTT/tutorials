@@ -19,7 +19,9 @@ middlewareObj.checkCampOwner = function (req, res, next) {
 
     if (req.isAuthenticated()) {
         Campground.findById(req.params.id, function(err, foundCampground){
-            if (err){
+            //solution for returning null campground
+            //https://www.youtube.com/watch?v=eDWPJAzlBfM&feature=youtu.be
+            if (err || !foundCampground){
                 //console.log("No camp found to edit");
                 req.flash("error", "campground not found");
                 res.redirect("back");
@@ -47,8 +49,9 @@ middlewareObj.checkCampOwner = function (req, res, next) {
 middlewareObj.checkCommentOwner = function (req, res, next) {
     if (req.isAuthenticated()) {
         Comment.findById(req.params.comment_id, function(err, foundComment){
-            if (err){
-                console.log("No comment found to edit");    
+            if (err || !foundComment){
+                //console.log("No comment found to edit");    
+                req.flash("error", "no comment found");
                 res.redirect("back");
             } else {
                 //does user own the campground ?

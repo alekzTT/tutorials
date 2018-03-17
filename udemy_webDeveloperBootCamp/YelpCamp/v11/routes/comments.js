@@ -73,14 +73,20 @@ router.post("/",middleware.isLogedIn, function(req, res){
 //campgrounds/:id/edit
 //campgrounds/:id/comments/:comment_id/edit
 router.get("/:comment_id/edit",middleware.checkCommentOwner, function(req, res){
-    Comment.findById(req.params.comment_id, function(err, foundComment){
-        if (err) {
-            //console.log("no comment found for campground");
-            req.flash("error", "oups!!! Something went wrong");
-        } else {
-            res.render("comments/edit",{campground_id:req.params.id, comment:foundComment});
+    Campground.findById(req.params.id, function(err, foundCampground) {
+        if (err || !foundCampground) {
+            req.flash("error", "this is not a valid campground");
+            return res.redirect("back");
         }
-    });
+        Comment.findById(req.params.comment_id, function(err, foundComment){
+            if (err) {
+                //console.log("no comment found for campground");
+                req.flash("error", "oups!!! Something went wrong");
+            } else {
+                res.render("comments/edit",{campground_id:req.params.id, comment:foundComment});
+            }
+        });
+    });   
 });
 
 //comment update 
