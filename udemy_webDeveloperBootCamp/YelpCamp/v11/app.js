@@ -52,6 +52,11 @@ passport.deserializeUser(User.deserializeUser());
 app.use(function(req, res, next){
     //whatever we put in res.locals will be available on all templates
     res.locals.currentUser = req.user;
+    
+    //error and success are not undefined even if not they are empty
+    //if([])  empty arrays are "truthy"
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 });
 //==================================================================

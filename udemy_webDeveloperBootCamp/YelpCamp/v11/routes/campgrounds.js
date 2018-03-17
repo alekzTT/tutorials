@@ -98,9 +98,11 @@ router.put("/:id",middleware.checkCampOwner, function(req, res){
     //find and update the correct campground
     Campground.findByIdAndUpdate(req.params.id,req.body.campground,function(err, updatedCampground){
         if (err) {
+            req.flash("error", "oups!!! something went wrong");
             res.redirect("/campgrounds");
         } else {
             //also correct ("/campgrounds/"+updatedCampground.id)
+            req.flash("success", "campground updated !!!")
             res.redirect("/campgrounds/"+req.params.id);
         }
     });
@@ -112,10 +114,12 @@ router.put("/:id",middleware.checkCampOwner, function(req, res){
 router.delete("/:id",middleware.checkCampOwner, function(req, res){
     Campground.findByIdAndRemove(req.params.id, function(err, deletedCampground){
         if(err) {
-            console.log("Error in Deleting Campground ");
+            //console.log("Error in Deleting Campground ");
+            req.flash("error", "oups !!! something went wrong");
             res.redirect("/campgrounds/"+req.params.id);
         } else {
-            console.log("Deleting " + deletedCampground.name);
+            //console.log("Deleting " + deletedCampground.name);
+            req.flash("success", "campground deleted");
             res.redirect("/campgrounds");
         }
     });

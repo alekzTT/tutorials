@@ -22,12 +22,18 @@ router.post("/register", function(req, res){
     //we only give the username and the register function stores the hash of the password
     User.register(newUser, req.body.password, function(err, user){
         if (err) {
-            console.log(err);
             //password local mongoose prevents user to signup if username allready in db
-            return res.render("register");
+            //this error is appeared if you click twice !!!! :/
+            //err is an object
+            //req.flash("error", err.message);
+            //this would require a
+            //res.redirect("/register");
+            //statement afterwards
+            return res.render("register", {"error": err.message});
         }
         passport.authenticate("local")(req, res, function(){
-            console.log("user Registered");
+            //console.log("user Registered");
+            req.flash("success", "registration successfull for " + user.username);
             res.redirect("/campgrounds");
         });
     });
@@ -36,7 +42,7 @@ router.post("/register", function(req, res){
 //LOGIN FORM ROUTE
 router.get("/login",function(req, res){
    // res.render("login", {message: "standard error"});
-   res.render("login", {message: req.flash("loginError")});
+   res.render("login");
 });
 
 
@@ -55,6 +61,7 @@ router.post("/login",passport.authenticate("local",
 router.get("/logout",
     function(req, res){
         req.logout();
+        req.flash("success", "Logged out !");
         res.redirect("/campgrounds");
 });
 
