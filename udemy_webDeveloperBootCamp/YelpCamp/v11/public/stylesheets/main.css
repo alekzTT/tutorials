@@ -1,0 +1,17 @@
+body {
+    background-color: #FFFAF0;
+}
+
+.deleteForm {
+    display:inline;
+}
+
+/*all img tags inside of thumbnails*/
+.thumbnail img {
+    width:100%;
+}
+
+.thumbnail {
+    padding:0;
+    
+}
