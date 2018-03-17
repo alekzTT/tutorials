@@ -2,13 +2,19 @@ var express = require("express");
 var router = express.Router({mergeParams:true});
 var Campground = require("../models/campground");
 var Comment = require("../models/comment");
+
+//require middleware
+//var middleware = require("../middleware/index.js");
+var middleware = require("../middleware");
+
+
 //================================================
 //COMMENT ROUTES
 //================================================
 
 //NEW ROUTE [form]
 //notice that the muddleware is called without semicolon
-router.get("/new",isLogedIn, function(req, res){
+router.get("/new",middleware.isLogedIn, function(req, res){
     Campground.findById(req.params.id).populate("comments").exec(function(error, foundCampground){
         if (error) { 
             console.log("No camp with such id");
@@ -21,7 +27,7 @@ router.get("/new",isLogedIn, function(req, res){
 
 //CREATE ROUTE
 //add middleware here to prevent post requests that can add a comment like from POSTMAN 
-router.post("/",isLogedIn, function(req, res){
+router.post("/",middleware.isLogedIn, function(req, res){
     //we have to know the Campground here
     Campground.findById(req.params.id, function(err, foundCampground){
         if (err) {
@@ -66,7 +72,7 @@ router.post("/",isLogedIn, function(req, res){
 
 //campgrounds/:id/edit
 //campgrounds/:id/comments/:comment_id/edit
-router.get("/:comment_id/edit",checkCommentOwner, function(req, res){
+router.get("/:comment_id/edit",middleware.checkCommentOwner, function(req, res){
     Comment.findById(req.params.comment_id, function(err, foundComment){
         if (err) {
             console.log("no comment found for campground");
@@ -78,7 +84,7 @@ router.get("/:comment_id/edit",checkCommentOwner, function(req, res){
 
 //comment update 
 //campgrounds/:id/comments/:comment_id
-router.put("/:comment_id",checkCommentOwner, function(req, res){
+router.put("/:comment_id",middleware.checkCommentOwner, function(req, res){
     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment){
         if (err) {
             res.redirect("back");
@@ -88,7 +94,7 @@ router.put("/:comment_id",checkCommentOwner, function(req, res){
     });
 });
 
-router.delete("/:comment_id",checkCommentOwner, function(req, res){
+router.delete("/:comment_id",middleware.checkCommentOwner, function(req, res){
     Comment.findByIdAndRemove(req.params.comment_id, function(err, deletedComment){
         if (err) {
             console.log("error deleting a comment"+ req.params.comment_id);
@@ -99,46 +105,5 @@ router.delete("/:comment_id",checkCommentOwner, function(req, res){
     });  
 
 });
-
-
-
-
-
-//is logedIn middleware
-function isLogedIn(req, res, next) {
-    if(req.isAuthenticated()) {
-        return next();
-    } else {
-        res.redirect("/login");
-    }
-}
-
-function checkCommentOwner(req, res, next) {
-    if (req.isAuthenticated()) {
-        Comment.findById(req.params.comment_id, function(err, foundComment){
-            if (err){
-                console.log("No comment found to edit");    
-                res.redirect("back");
-            } else {
-                //does user own the campground ?
-                if(foundComment.author.id.equals(req.user._id)) {
-                    //these two are different so we use the .equals() mongoose method
-                    //console.log(foundCampground.author.id);
-                    //console.log(req.user._id);
-                    next();
-                } else {
-                    res.redirect("back");
-                }
-            }
-        });
-    } else {
-       res.redirect("back");
-    }
-    
-}
-
-
-
-
 
 module.exports = router;
