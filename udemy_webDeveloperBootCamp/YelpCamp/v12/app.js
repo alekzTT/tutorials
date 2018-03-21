@@ -19,7 +19,13 @@ var campgroundRoutes = require("./routes/campgrounds");
 var indexRoutes     = require("./routes/index");
 
     
-mongoose.connect("mongodb://localhost/yelp_camp");
+//mongoose.connect("mongodb://localhost/yelp_camp");
+//env variables for different DBs e.g production vs devEnv
+//$ export DATABASEURL = //localhost
+//also can do a "default solution" in case the env var does not exist
+var dbUrl = "mongodb:"+process.env.DATABASEURL+"/yelp_camp" || "mongodb://localhost/yelp_camp"
+mongoose.connect(dbUrl);
+
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 //__dirname is tha name that the app runs
@@ -33,6 +39,8 @@ app.use(flash());
 
 
 //PASSPORT CONFIGURATION
+//this could also be an env var ? if we'd like to hide the key ?
+
 app.use(require("express-session")({
     secret:"123456", 
     resave: false, 
@@ -76,4 +84,5 @@ app.use("/", indexRoutes);
 //for the server to run
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log("YelpCamp app is running!!!");
+    console.log("connected on " + process.env.DATABASEURL);
 })
