@@ -19,7 +19,11 @@ var campgroundRoutes = require("./routes/campgrounds");
 var indexRoutes     = require("./routes/index");
 
     
-mongoose.connect("mongodb://localhost/yelp_camp");
+//mongoose.connect("mongodb://localhost/yelp_camp");
+//env variables for different DBs e.g production vs devEnv
+//$ export DATABASEURL = //localhost
+mongoose.connect("mongodb:"+process.env.DATABASEURL+"/yelp_camp");
+
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 //__dirname is tha name that the app runs
@@ -76,4 +80,5 @@ app.use("/", indexRoutes);
 //for the server to run
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log("YelpCamp app is running!!!");
+    console.log("connected on " + process.env.DATABASEURL);
 })
