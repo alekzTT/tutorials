@@ -22,9 +22,7 @@ var indexRoutes     = require("./routes/index");
 //mongoose.connect("mongodb://localhost/yelp_camp");
 //env variables for different DBs e.g production vs devEnv
 //$ export DATABASEURL = //localhost
-//also can do a "default solution" in case the env var does not exist
-var dbUrl = "mongodb:"+process.env.DATABASEURL+"/yelp_camp" || "mongodb://localhost/yelp_camp"
-mongoose.connect(dbUrl);
+mongoose.connect("mongodb:"+process.env.DATABASEURL+"/yelp_camp");
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
