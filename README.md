@@ -5,7 +5,7 @@ The content in this repository is owned by the respective tutorial creators.
 Any modifications / changes made from the original content is probably commented accordingly.
 
 >webDeveloperBootCamp
-    [html, css, bootstrap, javascript, jquery, node.js, npm,  express.js, json, APIs, mongoDB, REST, javascript:The tricky Stuff]
+    [html, css, bootstrap, javascript, jQuery, node.js, npm,  express.js, JSON, APIs, mongoDB, mongoose, REST, JS:The tricky Stuff]
     
 >webDevBootCamp2
-    [AJAX]
+    [AJAX, JSON APIs, ES2015, ES2016]
