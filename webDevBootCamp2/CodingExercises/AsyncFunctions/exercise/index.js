@@ -1,13 +1,19 @@
 console.log("Running exercise");
 
 //Assignment 1 -> hasMostFollowers
+
 //https://api.github.com/users/alekztt
 
 async function hasMostFollowers(...names) {
-    
+    /*names.forEach(function(name){
+      var data = await $.getJson(`https://api.github.com/users/${name}`);console.log(data);
+        console.log(data);
+    });
+    */
+    //console.log(names.length);
     var maxName ="";
     var maxFollowing=0;
-    
+
     for (var i=0; i<names.length; i++) {
         var dataProm = $.getJSON(`https://api.github.com/users/${names[i]}`);
         try { 
@@ -17,18 +23,18 @@ async function hasMostFollowers(...names) {
                     maxName = data.login;
                 }
             } catch (err) {
-                console.log(err);
+
+                console.log(err)
             }
+        //console.log(names[i]);
+        //console.log(data);
     }
-    
     return (`${maxName} has the most followers with ${maxFollowing}`);
 }
 
-
 hasMostFollowers('alekztt', 'colt', 'elie', 'tigarcia').then(function(data){
     console.log(data);
-});
-
+})
 
 async function hasMostFollowers2(...names) {
     
@@ -80,5 +86,6 @@ async function starWarsString(number) {
     //1 => "Luke Skywalker"
     //2 => "C-3PO"    etc
 
-
-
+hasMostFollowers2('alekztt', 'colt', 'elie', 'tigarcia').then(function(data){
+    console.log(data);
+})
