@@ -1,24 +1,16 @@
 console.log("Promises exercises JS connected");
 //we use index.html for jQuery
 
-
-
-
-
 function getMostFollowers() {
     return new Promise((resolve, reject) => {
-    var promArr = [];
-    var maxFollowers=0;
-    var maxUser;
-    
-        
+        var promArr = [];
+        var maxFollowers=0;
+        var maxUser;
         //an array of promises
         Array.from(arguments).forEach((name) => {
-         //$.getJSON(`https://api.github.com/users/${name}`)
             promArr.push($.getJSON(`https://api.github.com/users/${name}`))
-            
         });
-        
+            
         //we pass that array to promise.all function
         Promise.all(promArr).then((users) => {
             users.forEach((user) => {
@@ -55,14 +47,10 @@ function starWarsString(num){
     });
 }
 
-
-
 getMostFollowers('elie','tigarcia','colt').then(function(data){
     console.log("this is what i get "+data.login +" with "+ data.followers);
 }); 
 
-
-
 starWarsString(1).then(function(data){
-    console.log(data)
+    console.log(data);
 }).catch((err) => console.log (err));
